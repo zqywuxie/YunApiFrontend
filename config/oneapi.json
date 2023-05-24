@@ -1,0 +1,1412 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "YunApiBackend",
+    "version": "1.0",
+    "title": "接口文档"
+  },
+  "host": "localhost:8101",
+  "tags": [
+    {
+      "name": "file-controller",
+      "description": "File Controller"
+    },
+    {
+      "name": "interface-controller",
+      "description": "Interface Controller"
+    },
+    {
+      "name": "user-controller",
+      "description": "User Controller"
+    }
+  ],
+  "paths": {
+    "/api/file/upload": {
+      "post": {
+        "tags": [
+          "file-controller"
+        ],
+        "summary": "uploadFile",
+        "operationId": "uploadFileUsingPOST",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "biz",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "required": false,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BaseResponse«string»",
+              "originalRef": "BaseResponse«string»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/post/add": {
+      "post": {
+        "tags": [
+          "interface-controller"
+        ],
+        "summary": "addInterface",
+        "operationId": "addInterfaceUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "interfaceAddRequest",
+            "description": "interfaceAddRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InterfaceAddRequest",
+              "originalRef": "InterfaceAddRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BaseResponse«long»",
+              "originalRef": "BaseResponse«long»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/post/delete": {
+      "post": {
+        "tags": [
+          "interface-controller"
+        ],
+        "summary": "deleteInterface",
+        "operationId": "deleteInterfaceUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "deleteRequest",
+            "description": "deleteRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteRequest",
+              "originalRef": "DeleteRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BaseResponse«boolean»",
+              "originalRef": "BaseResponse«boolean»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/post/get/vo": {
+      "get": {
+        "tags": [
+          "interface-controller"
+        ],
+        "summary": "getInterfaceInfoVOById",
+        "operationId": "getInterfaceInfoVOByIdUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BaseResponse«InterfaceInfoVO»",
+              "originalRef": "BaseResponse«InterfaceInfoVO»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/post/update": {
+      "post": {
+        "tags": [
+          "interface-controller"
+        ],
+        "summary": "updateInterface",
+        "operationId": "updateInterfaceUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "interfaceUpdateRequest",
+            "description": "interfaceUpdateRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InterfaceUpdateRequest",
+              "originalRef": "InterfaceUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BaseResponse«boolean»",
+              "originalRef": "BaseResponse«boolean»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/user/add": {
+      "post": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "addUser",
+        "operationId": "addUserUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "userAddRequest",
+            "description": "userAddRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserAddRequest",
+              "originalRef": "UserAddRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BaseResponse«long»",
+              "originalRef": "BaseResponse«long»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/user/delete": {
+      "post": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "deleteUser",
+        "operationId": "deleteUserUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "deleteRequest",
+            "description": "deleteRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteRequest",
+              "originalRef": "DeleteRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BaseResponse«boolean»",
+              "originalRef": "BaseResponse«boolean»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/user/get": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "getUserById",
+        "operationId": "getUserByIdUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BaseResponse«User»",
+              "originalRef": "BaseResponse«User»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/user/get/login": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "getLoginUser",
+        "operationId": "getLoginUserUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BaseResponse«LoginUserVO»",
+              "originalRef": "BaseResponse«LoginUserVO»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/user/get/vo": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "getUserVOById",
+        "operationId": "getUserVOByIdUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BaseResponse«UserVO»",
+              "originalRef": "BaseResponse«UserVO»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/user/list/page": {
+      "post": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "listUserByPage",
+        "operationId": "listUserByPageUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "userQueryRequest",
+            "description": "userQueryRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserQueryRequest",
+              "originalRef": "UserQueryRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BaseResponse«Page«User»»",
+              "originalRef": "BaseResponse«Page«User»»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/user/list/page/vo": {
+      "post": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "listUserVOByPage",
+        "operationId": "listUserVOByPageUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "userQueryRequest",
+            "description": "userQueryRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserQueryRequest",
+              "originalRef": "UserQueryRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BaseResponse«Page«UserVO»»",
+              "originalRef": "BaseResponse«Page«UserVO»»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/user/login": {
+      "post": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "userLogin",
+        "operationId": "userLoginUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "userLoginRequest",
+            "description": "userLoginRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserLoginRequest",
+              "originalRef": "UserLoginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BaseResponse«LoginUserVO»",
+              "originalRef": "BaseResponse«LoginUserVO»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/user/login/wx_open": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "userLoginByWxOpen",
+        "operationId": "userLoginByWxOpenUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "description": "code",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BaseResponse«LoginUserVO»",
+              "originalRef": "BaseResponse«LoginUserVO»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/user/logout": {
+      "post": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "userLogout",
+        "operationId": "userLogoutUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BaseResponse«boolean»",
+              "originalRef": "BaseResponse«boolean»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/user/register": {
+      "post": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "userRegister",
+        "operationId": "userRegisterUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "userRegisterRequest",
+            "description": "userRegisterRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserRegisterRequest",
+              "originalRef": "UserRegisterRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BaseResponse«long»",
+              "originalRef": "BaseResponse«long»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/user/update": {
+      "post": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "updateUser",
+        "operationId": "updateUserUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "userUpdateRequest",
+            "description": "userUpdateRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserUpdateRequest",
+              "originalRef": "UserUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BaseResponse«boolean»",
+              "originalRef": "BaseResponse«boolean»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/user/update/my": {
+      "post": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "updateMyUser",
+        "operationId": "updateMyUserUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "userUpdateMyRequest",
+            "description": "userUpdateMyRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserUpdateMyRequest",
+              "originalRef": "UserUpdateMyRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BaseResponse«boolean»",
+              "originalRef": "BaseResponse«boolean»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "BaseResponse«InterfaceInfoVO»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "$ref": "#/definitions/InterfaceInfoVO",
+          "originalRef": "InterfaceInfoVO"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "BaseResponse«InterfaceInfoVO»"
+    },
+    "BaseResponse«LoginUserVO»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "$ref": "#/definitions/LoginUserVO",
+          "originalRef": "LoginUserVO"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "BaseResponse«LoginUserVO»"
+    },
+    "BaseResponse«Page«UserVO»»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "$ref": "#/definitions/Page«UserVO»",
+          "originalRef": "Page«UserVO»"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "BaseResponse«Page«UserVO»»"
+    },
+    "BaseResponse«Page«User»»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "$ref": "#/definitions/Page«User»",
+          "originalRef": "Page«User»"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "BaseResponse«Page«User»»"
+    },
+    "BaseResponse«UserVO»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "$ref": "#/definitions/UserVO",
+          "originalRef": "UserVO"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "BaseResponse«UserVO»"
+    },
+    "BaseResponse«User»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "$ref": "#/definitions/User",
+          "originalRef": "User"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "BaseResponse«User»"
+    },
+    "BaseResponse«boolean»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "BaseResponse«boolean»"
+    },
+    "BaseResponse«long»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "BaseResponse«long»"
+    },
+    "BaseResponse«string»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "BaseResponse«string»"
+    },
+    "DeleteRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteRequest"
+    },
+    "InterfaceAddRequest": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "requestHeader": {
+          "type": "string"
+        },
+        "responseHeader": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "title": "InterfaceAddRequest"
+    },
+    "InterfaceInfoVO": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "requestHeader": {
+          "type": "string"
+        },
+        "responseHeader": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "url": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "InterfaceInfoVO"
+    },
+    "InterfaceUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "method": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "requestHeader": {
+          "type": "string"
+        },
+        "responseHeader": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "title": "InterfaceUpdateRequest"
+    },
+    "LoginUserVO": {
+      "type": "object",
+      "properties": {
+        "createTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "userAvatar": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "userProfile": {
+          "type": "string"
+        },
+        "userRole": {
+          "type": "string"
+        }
+      },
+      "title": "LoginUserVO"
+    },
+    "OrderItem": {
+      "type": "object",
+      "properties": {
+        "asc": {
+          "type": "boolean"
+        },
+        "column": {
+          "type": "string"
+        }
+      },
+      "title": "OrderItem"
+    },
+    "Page«UserVO»": {
+      "type": "object",
+      "properties": {
+        "countId": {
+          "type": "string"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "maxLimit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "optimizeCountSql": {
+          "type": "boolean"
+        },
+        "orders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrderItem",
+            "originalRef": "OrderItem"
+          }
+        },
+        "pages": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserVO",
+            "originalRef": "UserVO"
+          }
+        },
+        "searchCount": {
+          "type": "boolean"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "Page«UserVO»"
+    },
+    "Page«User»": {
+      "type": "object",
+      "properties": {
+        "countId": {
+          "type": "string"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "maxLimit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "optimizeCountSql": {
+          "type": "boolean"
+        },
+        "orders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrderItem",
+            "originalRef": "OrderItem"
+          }
+        },
+        "pages": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/User",
+            "originalRef": "User"
+          }
+        },
+        "searchCount": {
+          "type": "boolean"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "Page«User»"
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "createTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "isDelete": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "mpOpenId": {
+          "type": "string"
+        },
+        "unionId": {
+          "type": "string"
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "userAccount": {
+          "type": "string"
+        },
+        "userAvatar": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "userPassword": {
+          "type": "string"
+        },
+        "userProfile": {
+          "type": "string"
+        },
+        "userRole": {
+          "type": "string"
+        }
+      },
+      "title": "User"
+    },
+    "UserAddRequest": {
+      "type": "object",
+      "properties": {
+        "userAccount": {
+          "type": "string"
+        },
+        "userAvatar": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "userRole": {
+          "type": "string"
+        }
+      },
+      "title": "UserAddRequest"
+    },
+    "UserLoginRequest": {
+      "type": "object",
+      "properties": {
+        "userAccount": {
+          "type": "string"
+        },
+        "userPassword": {
+          "type": "string"
+        }
+      },
+      "title": "UserLoginRequest"
+    },
+    "UserQueryRequest": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "mpOpenId": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "sortField": {
+          "type": "string"
+        },
+        "sortOrder": {
+          "type": "string"
+        },
+        "unionId": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "userProfile": {
+          "type": "string"
+        },
+        "userRole": {
+          "type": "string"
+        }
+      },
+      "title": "UserQueryRequest"
+    },
+    "UserRegisterRequest": {
+      "type": "object",
+      "properties": {
+        "checkPassword": {
+          "type": "string"
+        },
+        "userAccount": {
+          "type": "string"
+        },
+        "userPassword": {
+          "type": "string"
+        }
+      },
+      "title": "UserRegisterRequest"
+    },
+    "UserUpdateMyRequest": {
+      "type": "object",
+      "properties": {
+        "userAvatar": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "userProfile": {
+          "type": "string"
+        }
+      },
+      "title": "UserUpdateMyRequest"
+    },
+    "UserUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userAvatar": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "userProfile": {
+          "type": "string"
+        },
+        "userRole": {
+          "type": "string"
+        }
+      },
+      "title": "UserUpdateRequest"
+    },
+    "UserVO": {
+      "type": "object",
+      "properties": {
+        "createTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userAvatar": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "userProfile": {
+          "type": "string"
+        },
+        "userRole": {
+          "type": "string"
+        }
+      },
+      "title": "UserVO"
+    }
+  }
+}
