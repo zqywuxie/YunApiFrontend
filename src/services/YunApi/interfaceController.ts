@@ -32,6 +32,21 @@ export async function deleteInterfaceUsingPOST(
   });
 }
 
+/** getInterfaceInfoById GET /api/post/get */
+export async function getInterfaceInfoByIdUsingGET(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getInterfaceInfoByIdUsingGETParams,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseInterfaceInfo_>('/api/post/get', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
 /** getInterfaceInfoVOById GET /api/post/get/vo */
 export async function getInterfaceInfoVOByIdUsingGET(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
@@ -47,6 +62,21 @@ export async function getInterfaceInfoVOByIdUsingGET(
   });
 }
 
+/** invokeInterface POST /api/post/invoke */
+export async function invokeInterfaceUsingPOST(
+  body: API.InvokeInterfaceRequest,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseObject_>('/api/post/invoke', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
 /** listInterfaceInfoByPage GET /api/post/list/page */
 export async function listInterfaceInfoByPageUsingGET(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
@@ -58,6 +88,36 @@ export async function listInterfaceInfoByPageUsingGET(
     params: {
       ...params,
     },
+    ...(options || {}),
+  });
+}
+
+/** offlineInterface POST /api/post/offline */
+export async function offlineInterfaceUsingPOST(
+  body: API.IdRequest,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseBoolean_>('/api/post/offline', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** onlineInterface POST /api/post/online */
+export async function onlineInterfaceUsingPOST(
+  body: API.IdRequest,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseBoolean_>('/api/post/online', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
     ...(options || {}),
   });
 }

@@ -1,9 +1,11 @@
-import CreateModel from '@/pages/InterfaceInfo/components/CreateModel';
-import UpdateModel from '@/pages/InterfaceInfo/components/UpdateModel';
+import CreateModel from '@/pages/Admin/InterfaceInfo/components/CreateModel';
+import UpdateModel from '@/pages/Admin/InterfaceInfo/components/UpdateModel';
 import {
   addInterfaceUsingPOST,
   deleteInterfaceUsingPOST,
   listInterfaceInfoByPageUsingGET,
+  offlineInterfaceUsingPOST,
+  onlineInterfaceUsingPOST,
   updateInterfaceUsingPOST,
 } from '@/services/YunApi/interfaceController';
 import { PlusOutlined } from '@ant-design/icons';
@@ -35,8 +37,8 @@ const TableList: React.FC = () => {
   const [updateModalOpen, handleUpdateModalOpen] = useState<boolean>(false);
   const [showDetail, setShowDetail] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
-  const [currentRow, setCurrentRow] = useState<API.RuleListItem>();
-  const [selectedRowsState, setSelectedRows] = useState<API.RuleListItem[]>([]);
+  const [currentRow, setCurrentRow] = useState<API.InterfaceInfo>();
+  const [selectedRowsState, setSelectedRows] = useState<API.InterfaceInfo[]>([]);
 
   /**
    * @en-US Add node
@@ -70,8 +72,12 @@ const TableList: React.FC = () => {
    */
   const handleUpdate = async (fields: API.InterfaceInfo) => {
     const hide = message.loading('Configuring');
+    if (!currentRow) {
+      return;
+    }
     try {
       await updateInterfaceUsingPOST({
+        id: currentRow?.id,
         ...fields,
       });
       hide();
@@ -106,6 +112,50 @@ const TableList: React.FC = () => {
     } catch (error: any) {
       hide();
       message.error('删除接口失败,' + error.message);
+      return false;
+    }
+  };
+
+  /**
+   * 上线接口
+   * @param record
+   */
+  const handleOnline = async (record: API.IdRequest) => {
+    const hide = message.loading('正在上线');
+    if (!record) return true;
+    try {
+      await onlineInterfaceUsingPOST({
+        id: record.id,
+      });
+      hide();
+      message.success('上线接口成功');
+      actionRef.current?.reload();
+      return true;
+    } catch (error: any) {
+      hide();
+      message.error('上线接口失败,' + error.message);
+      return false;
+    }
+  };
+
+  /**
+   * 下线接口
+   * @param record
+   */
+  const handleOffline = async (record: API.IdRequest) => {
+    const hide = message.loading('正在下线');
+    if (!record) return true;
+    try {
+      await offlineInterfaceUsingPOST({
+        id: record.id,
+      });
+      hide();
+      message.success('下线接口成功');
+      actionRef.current?.reload();
+      return true;
+    } catch (error: any) {
+      hide();
+      message.error('下线接口失败,' + error.message);
       return false;
     }
   };
@@ -154,12 +204,17 @@ const TableList: React.FC = () => {
     {
       title: '请求头',
       dataIndex: 'requestHeader',
-      valueType: 'textarea',
+      valueType: 'jsonCode',
     },
     {
       title: '响应头',
       dataIndex: 'responseHeader',
-      valueType: 'textarea',
+      valueType: 'jsonCode',
+    },
+    {
+      title: '请求参数',
+      dataIndex: 'requestParams',
+      valueType: 'jsonCode',
     },
     {
       title: '状态',
@@ -194,23 +249,52 @@ const TableList: React.FC = () => {
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => [
-        <a
+        <Button
+          size="small"
           key="config"
+          type="primary"
           onClick={() => {
             handleUpdateModalOpen(true);
             setCurrentRow(record);
           }}
         >
           修改
-        </a>,
-        <a
+        </Button>,
+        record.status === 0 ? (
+          <Button
+            size="small"
+            key="online"
+            type={'primary'}
+            onClick={() => {
+              handleOnline(record);
+            }}
+          >
+            上线
+          </Button>
+        ) : (
+          <Button
+            size="small"
+            key="offline"
+            danger
+            onClick={() => {
+              handleOffline(record);
+            }}
+          >
+            下线
+          </Button>
+        ),
+
+        <Button
           key="delete"
+          size="small"
+          type="primary"
           onClick={() => {
             handleRemove(record);
           }}
+          danger
         >
           删除
-        </a>,
+        </Button>,
         // <a key="subscribeAlert" href="https://procomponents.ant.design/">
         //   订阅警报
         // </a>,
@@ -250,6 +334,7 @@ const TableList: React.FC = () => {
           const res = await listInterfaceInfoByPageUsingGET({
             ...params,
           });
+          console.log(res.data);
           if (res?.data) {
             return {
               data: res.data.records || [],
@@ -303,7 +388,7 @@ const TableList: React.FC = () => {
         </FooterToolbar>
       )}
       <ModalForm
-        title={'新建规则'}
+        title={'新建接口'}
         width="400px"
         open={createModalOpen}
         onOpenChange={handleModalOpen}
@@ -315,6 +400,7 @@ const TableList: React.FC = () => {
               actionRef.current.reload();
             }
           }
+          setCurrentRow(undefined);
         }}
       >
         <ProFormText
@@ -330,7 +416,7 @@ const TableList: React.FC = () => {
         <ProFormTextArea width="md" name="desc" />
       </ModalForm>
       <UpdateModel
-        values={currentRow}
+        values={currentRow || {}}
         columns={columns}
         onSubmit={async (value) => {
           const success = await handleUpdate(value);
