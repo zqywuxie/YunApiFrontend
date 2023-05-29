@@ -1,21 +1,14 @@
 import Footer from '@/components/Footer';
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
 import { userLoginUsingPOST } from '@/services/YunApi/userController';
-import { Link } from '@@/exports';
 import {
   AlipayCircleOutlined,
   LockOutlined,
-  MobileOutlined,
   TaobaoCircleOutlined,
   UserOutlined,
   WeiboCircleOutlined,
 } from '@ant-design/icons';
-import {
-  LoginForm,
-  ProFormCaptcha,
-  ProFormCheckbox,
-  ProFormText,
-} from '@ant-design/pro-components';
+import { LoginForm, ProFormCaptcha, ProFormText } from '@ant-design/pro-components';
 import { useEmotionCss } from '@ant-design/use-emotion-css';
 import { Helmet, history, useModel } from '@umijs/max';
 import { Alert, message, Tabs } from 'antd';
@@ -116,11 +109,12 @@ const Login: React.FC = () => {
     }
   };
   const { status, type: loginType } = userLoginState;
+  // @ts-ignore
   return (
     <div className={containerClassName}>
       <Helmet>
         <title>
-          {'登录'}- {Settings.title}
+          {'注册'}- {Settings.title}
         </title>
       </Helmet>
       <Lang />
@@ -141,135 +135,131 @@ const Login: React.FC = () => {
           initialValues={{
             autoLogin: true,
           }}
-          actions={['其他登录方式 :', <ActionIcons key="icons" />]}
+          submitter={{
+            searchConfig: {
+              submitText: '注册',
+            },
+          }}
           onFinish={async (values) => {
             await handleSubmit(values as API.UserLoginRequest);
           }}
         >
           <Tabs
-            activeKey={type}
-            onChange={setType}
             centered
             items={[
               {
-                key: 'account',
-                label: '账户密码登录',
-              },
-              {
-                key: 'mobile',
-                label: '手机号登录',
+                key: 'register',
+                label: '用户注册',
               },
             ]}
           />
-
-          {status === 'error' && loginType === 'account' && (
-            <LoginMessage content={'错误的用户名和密码(admin/ant.design)'} />
-          )}
-          {type === 'account' && (
-            <>
-              <ProFormText
-                name="userAccount"
-                fieldProps={{
-                  size: 'large',
-                  prefix: <UserOutlined />,
-                }}
-                placeholder={'账号'}
-                rules={[
-                  {
-                    required: true,
-                    message: '用户名是必填项！',
-                  },
-                ]}
-              />
-              <ProFormText.Password
-                name="userPassword"
-                fieldProps={{
-                  size: 'large',
-                  prefix: <LockOutlined />,
-                }}
-                placeholder={'密码'}
-                rules={[
-                  {
-                    required: true,
-                    message: '密码是必填项！',
-                  },
-                ]}
-              />
-            </>
-          )}
-
-          {status === 'error' && loginType === 'mobile' && <LoginMessage content="验证码错误" />}
-          {type === 'mobile' && (
-            <>
-              <ProFormText
-                fieldProps={{
-                  size: 'large',
-                  prefix: <MobileOutlined />,
-                }}
-                name="mobile"
-                placeholder={'请输入手机号！'}
-                rules={[
-                  {
-                    required: true,
-                    message: '手机号是必填项！',
-                  },
-                  {
-                    pattern: /^1\d{10}$/,
-                    message: '不合法的手机号！',
-                  },
-                ]}
-              />
-              <ProFormCaptcha
-                fieldProps={{
-                  size: 'large',
-                  prefix: <LockOutlined />,
-                }}
-                captchaProps={{
-                  size: 'large',
-                }}
-                placeholder={'请输入验证码！'}
-                captchaTextRender={(timing, count) => {
-                  if (timing) {
-                    return `${count} ${'秒后重新获取'}`;
-                  }
-                  return '获取验证码';
-                }}
-                name="captcha"
-                rules={[
-                  {
-                    required: true,
-                    message: '验证码是必填项！',
-                  },
-                ]}
-                onGetCaptcha={async (phone) => {
-                  const result = await getFakeCaptcha({
-                    phone,
-                  });
-                  if (!result) {
-                    return;
-                  }
-                  message.success('获取验证码成功！验证码为：1234');
-                }}
-              />
-            </>
-          )}
-          <div
-            style={{
-              marginBottom: 24,
+          <ProFormText
+            name="userName"
+            fieldProps={{
+              size: 'large',
+              prefix: <UserOutlined />,
             }}
-          >
-            <ProFormCheckbox noStyle name="autoLogin">
-              自动登录
-            </ProFormCheckbox>
-            <Link
-              style={{
-                float: 'right',
-              }}
-              to={'/user/register'}
-            >
-              没有账号 ? 去注册
-            </Link>
-          </div>
+            placeholder={'用户昵称:1~7位'}
+            rules={[
+              {
+                required: true,
+                message: '用户名是必填项！',
+              },
+            ]}
+          />
+          <ProFormText
+            name="userAccount"
+            fieldProps={{
+              size: 'large',
+              prefix: <UserOutlined />,
+            }}
+            placeholder={'用户账号：6~10位'}
+            rules={[
+              {
+                required: true,
+                message: '用户账号是必填项！',
+              },
+            ]}
+          />
+          <ProFormText.Password
+            name="userPassword"
+            fieldProps={{
+              size: 'large',
+              prefix: <LockOutlined />,
+            }}
+            placeholder={'用户密码：至少8位'}
+            rules={[
+              {
+                required: true,
+                message: '密码是必填项！',
+              },
+            ]}
+          />
+          <ProFormText.Password
+            name="userPassword"
+            fieldProps={{
+              size: 'large',
+              prefix: <LockOutlined />,
+            }}
+            placeholder={'确认密码'}
+            rules={[
+              {
+                required: true,
+                message: '确认密码是必填项！',
+              },
+            ]}
+          />
+          <ProFormText
+            name="phone"
+            fieldProps={{
+              size: 'large',
+              prefix: <UserOutlined />,
+            }}
+            placeholder={'手机号'}
+            rules={[
+              {
+                required: true,
+                message: '请填入你的手机号！',
+              },
+              {
+                pattern:
+                  /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/,
+                message: '手机格式错误',
+              },
+            ]}
+          />
+          <ProFormCaptcha
+            fieldProps={{
+              size: 'large',
+              prefix: <LockOutlined />,
+            }}
+            captchaProps={{
+              size: 'large',
+            }}
+            placeholder={'请输入验证码！'}
+            captchaTextRender={(timing, count) => {
+              if (timing) {
+                return `${count} ${'秒后重新获取'}`;
+              }
+              return '获取验证码';
+            }}
+            name="captcha"
+            rules={[
+              {
+                required: true,
+                message: '验证码是必填项！',
+              },
+            ]}
+            onGetCaptcha={async (phone) => {
+              const result = await getFakeCaptcha({
+                phone,
+              });
+              if (!result) {
+                return;
+              }
+              message.success('获取验证码成功！验证码为：1234');
+            }}
+          />
         </LoginForm>
       </div>
       <Footer />
